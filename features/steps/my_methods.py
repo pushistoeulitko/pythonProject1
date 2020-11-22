@@ -1,7 +1,6 @@
 import allure
 from selenium.webdriver.common.action_chains import ActionChains
 from features.steps.brower_setting import Browser
-#from selenium.common.exceptions import NoSuchElementException
 
 
 class Methods(Browser):
@@ -20,7 +19,6 @@ class Methods(Browser):
     def screenshots(context):
         allure.attach(context.driver.get_screenshot_as_png(), name='screenshot',
                       attachment_type=allure.attachment_type.PNG)
-        context.driver.save_screenshot('screenshot.png')
 
     def move_mouse_to_element(context, path):
 
@@ -33,7 +31,6 @@ class Methods(Browser):
         else:
             print(f"Элемент присутствует по Xpath {path}")
 
-    # NoSuchElementException
 
     def click_element(context, path):
         try:
@@ -56,9 +53,9 @@ class Methods(Browser):
         try:
             assert word in context.driver.find_element_by_xpath(path).text
         except Exception as e:
-            print(f"Заголовок {word}  отсутствует по Xpath {path}", format(e))
+            print(f"Текст {word}  отсутствует по Xpath {path}", format(e))
         else:
-            print(f"Заголовок {word} присутствует по Xpath {path}")
+            print(f"Текст {word} присутствует по Xpath {path}")
 
     def check_elements(context, path):
         try:
@@ -67,5 +64,5 @@ class Methods(Browser):
         except Exception as e:
             print(f"Элементы не найдены {path}", format(e))
         else:
-            print(f"{number} элементов найдено")
+            print(f"Найдено элементов: {number}")
             return elements

@@ -4,6 +4,7 @@ import json
 from features.steps.brower_setting import Browser
 from features.steps.my_methods import Methods
 
+
 @given('Открываем сайт')
 def open_main_page(context):
     Browser.settings(context, chrome, False)
@@ -38,6 +39,7 @@ def check_title(context):
     path = "//*[@id='leftColumn']/h1"
     word = 'Россия - акции'
     Methods.check_word(context, path, word)
+    Methods.screenshots(context)
 
 
 # вариант  - Словарь
@@ -54,13 +56,14 @@ def parse_date_dict(context):
         company = rows_company_name[i].text
         price = rows_company_price[i].text
         dict_company.update({company: price})
+    Methods.screenshots(context)
 
 
 @then('Выгрузка собранных данных в JSON 1')
 def parse_to_json(context):
     with open("report.json", "w", encoding="utf-8") as file:
         json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
-
+    Methods.screenshots(context)
 
 # вариант  - ООП
 
@@ -86,6 +89,7 @@ collect_date = []
 def parse_date_class(context):
     rows_company_name = Methods.check_elements(context, "//td[@class='bold left noWrap elp plusIconTd']")
     rows_company_price = Methods.check_elements(context, "//td[3][starts-with(@class, 'pid')]")
+    Methods.screenshots(context)
     for i in range(len(rows_company_price) - 1):
         company = rows_company_name[i].text
         price = rows_company_price[i].text
@@ -93,17 +97,17 @@ def parse_date_class(context):
         collect_date.append(comp)
     return collect_date
 
-
 @then('Выгрузка собранных данных в JSON 2')
 def parse_to_json(context):
     for obj in collect_date:
         dict_company.update({obj.company: obj.price})
     with open("report.json", "w", encoding="utf-8") as file:
         json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
-
+    Methods.screenshots(context) # ничего не происходит
 
 @then('Закрываем сайт')
 def close_site(context):
+    Methods.screenshots(context)
     Browser.quit(context)
 
 
@@ -120,23 +124,25 @@ def parse_json_python(context):
 @when('Переходим в форму залогинивания')
 def login_form(context):
     Methods.click_element(context, "//*[@id='userAccount']/div/a[1]")
-
+    Methods.screenshots(context)
 
 @then('Вводим почту "{email}"')
 def input_user(context, email):
     Methods.type_text(context, "//*[@id='loginFormUser_email']", email)
-
+    Methods.screenshots(context)
 
 @then('Вводим пароль "{password}"')
 def input_password(context, password):
     Methods.type_text(context, "//*[@id='loginForm_password']", password)
-
+    Methods.screenshots(context)
 
 @then('Кнопка Войти')
 def button_enter(context):
     Methods.click_element(context, "//*[@id='signup']/a")
-
+    Methods.screenshots(context)
 
 @then('Заголовок или Предупреждение "{warn}"')
 def find_warn(context, warn):
-    context.driver.find_element_by_xpath("//*[@id='emailSigningNotify']")
+    path = "//*[@id='emailSigningNotify']"
+    Methods.check_word(context, path, warn)
+    Methods.screenshots(context)
