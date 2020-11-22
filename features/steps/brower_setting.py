@@ -18,10 +18,8 @@ class Browser(object):
             print("Запуск в headless режиме")
         else:
             print("Запуск в браузере")
-            context.driver.implicitly_wait(15)
+            context.driver.implicitly_wait(10)
             context.driver.maximize_window()
-
-        #context.driver = webdriver.Chrome(options=chrome_options)
 
     def quit(context):
         context.driver.quit()  # context.driver.close()
