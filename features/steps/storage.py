@@ -1,11 +1,12 @@
 import sqlite3
 
-#with sqlite3.connect("stocks") as conn:
-    #cur = conn.cursor()
-    #result_company = cur.fetchall()
-    #print(result_company)
-    #or result_company in cur.execute("SELECT name FROM stock_price"):
-        #print(result_company)
+
+# with sqlite3.connect("stocks") as conn:
+# cur = conn.cursor()
+# result_company = cur.fetchall()
+# print(result_company)
+# or result_company in cur.execute("SELECT name FROM stock_price"):
+# print(result_company)
 
 
 class Storage(object):

@@ -1,6 +1,7 @@
 import allure
 from selenium.webdriver.common.action_chains import ActionChains
 from features.steps.brower_setting import Browser
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException, InvalidSelectorException
 
 
 class Methods(Browser):
@@ -11,7 +12,6 @@ class Methods(Browser):
         assert context.driver.current_url == 'https://ru.investing.com/'
 
     def spam(context):
-        path = "//i[@class='popupCloseIcon largeBannerCloser']"
         path = "//*[@id='PromoteSignUpPopUp']/div[2]/i"
         if context.driver.find_element_by_xpath(path).is_displayed():
             context.driver.find_element_by_xpath(path).click()
@@ -31,11 +31,10 @@ class Methods(Browser):
         else:
             print(f"Элемент присутствует по Xpath {path}")
 
-
     def click_element(context, path):
         try:
             context.driver.find_element_by_xpath(path).click()
-        except Exception as e:
+        except Exception() as e:
             print(f"Элемент отсутствует по Xpath {path}", format(e))
         else:
             print(f"Элемент присутствует по Xpath {path}")
@@ -51,7 +50,8 @@ class Methods(Browser):
 
     def check_word(context, path, word):
         try:
-            assert word in context.driver.find_element_by_xpath(path).text
+            word_0 = context.driver.find_element_by_xpath(path).text
+            assert word in word_0
         except Exception as e:
             print(f"Текст {word}  отсутствует по Xpath {path}", format(e))
         else:

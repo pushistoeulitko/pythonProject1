@@ -27,8 +27,8 @@ def go_to_date2(context):
     Methods.screenshots(context)
 
 
-@when('Переходим на вкладку Акции->Россия')
-def go_to_date3(context):
+@when('Переходим на вкладку Акции->Россия по "{path}"')
+def go_to_date3(context, path):
     path = "//*[@id='navMenu']/ul/li[1]/ul/li[4]/div/ul[1]/li[3]/a"
     Methods.click_element(context, path)
     Methods.screenshots(context)
@@ -65,6 +65,7 @@ def parse_to_json(context):
         json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
     Methods.screenshots(context)
 
+
 # вариант  - ООП
 
 class CollectDateUnsorted:
@@ -76,7 +77,7 @@ class CollectDateUnsorted:
     def __repr__(self):
         return f"{self.company}, {self.price}"
 
-    def get_str(self):
+    def __str__(self):
         return f"{self.company}:{self.price}"
 
     # def change_plus_pris(self):
@@ -97,13 +98,15 @@ def parse_date_class(context):
         collect_date.append(comp)
     return collect_date
 
+
 @then('Выгрузка собранных данных в JSON 2')
 def parse_to_json(context):
     for obj in collect_date:
         dict_company.update({obj.company: obj.price})
     with open("report.json", "w", encoding="utf-8") as file:
         json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
-    Methods.screenshots(context) # ничего не происходит
+    Methods.screenshots(context)
+
 
 @then('Закрываем сайт')
 def close_site(context):
@@ -112,7 +115,7 @@ def close_site(context):
 
 
 # 2 сценарий
-@given('Из Json в Python')
+@given('Из Json в Python')  # не работает еще
 def parse_json_python(context):
     json_file = 'report.json'
     with open(json_file, 'r') as file:
@@ -121,28 +124,33 @@ def parse_json_python(context):
 
 # 3 сценарий
 
-@when('Переходим в форму залогинивания')
+@when('Переходим в форму залогинивания') # не работает тесты проходят и при отсутствии предупреждения и при удалении путей
 def login_form(context):
     Methods.click_element(context, "//*[@id='userAccount']/div/a[1]")
     Methods.screenshots(context)
 
+
 @then('Вводим почту "{email}"')
 def input_user(context, email):
-    Methods.type_text(context, "//*[@id='loginFormUser_email']", email)
+    #Methods.type_text(context, "//*[@id='loginFormUser_email']", email)
     Methods.screenshots(context)
+
 
 @then('Вводим пароль "{password}"')
 def input_password(context, password):
     Methods.type_text(context, "//*[@id='loginForm_password']", password)
     Methods.screenshots(context)
 
+
 @then('Кнопка Войти')
 def button_enter(context):
     Methods.click_element(context, "//*[@id='signup']/a")
     Methods.screenshots(context)
 
+
 @then('Заголовок или Предупреждение "{warn}"')
 def find_warn(context, warn):
-    path = "//*[@id='emailSigningNotify']"
-    Methods.check_word(context, path, warn)
+    path1 = "//*[@id='serverErrors']"
+    path2 = "//*[@id='emailSigningNotify']"
+    Methods.check_word(context, path1, warn)
     Methods.screenshots(context)
