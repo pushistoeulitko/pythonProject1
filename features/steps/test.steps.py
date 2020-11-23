@@ -120,7 +120,7 @@ def parse_json_python(context):
     json_file = 'report.json'
     with open(json_file, 'r') as file:
         data = json.load(file)
-
+    Methods.screenshots(context)
 
 # 3 сценарий
 
