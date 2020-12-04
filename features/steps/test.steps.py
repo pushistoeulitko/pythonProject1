@@ -3,7 +3,7 @@ from selenium.webdriver import chrome, firefox
 import json
 from features.steps.brower_setting import Browser
 from features.steps.my_methods import Methods
-
+from features.steps.Locators import Locators
 
 @given('Открываем сайт')
 def open_main_page(context):
@@ -15,30 +15,26 @@ def open_main_page(context):
 
 @when('Переходим на вкладку Котировки')
 def go_to_date1(context):
-    path = "//*[@id='navMenu']/ul/li[1]/a"
-    Methods.move_mouse_to_element(context, path)
+    Methods.move_mouse_to_element(context, Locators.LOCATOR_PATH1)
     Methods.screenshots(context)
 
 
 @when('Переходим на вкладку Котировки->Акции')
 def go_to_date2(context):
-    path = "//*[@id='navMenu']/ul/li[1]/ul/li[4]"
-    Methods.move_mouse_to_element(context, path)
+    Methods.move_mouse_to_element(context, Locators.LOCATOR_PATH2)
     Methods.screenshots(context)
 
 
 @when('Переходим на вкладку Акции->Россия по "{path}"')
 def go_to_date3(context, path):
-    path = "//*[@id='navMenu']/ul/li[1]/ul/li[4]/div/ul[1]/li[3]/a"
-    Methods.click_element(context, path)
+    Methods.click_element(context, Locators.LOCATOR_PATH3)
     Methods.screenshots(context)
 
 
 @then('Проверяем заголовок')
 def check_title(context):
-    path = "//*[@id='leftColumn']/h1"
     word = 'Россия - акции'
-    Methods.check_word(context, path, word)
+    Methods.check_word(context, Locators.LOCATOR_TITLE, word)
     Methods.screenshots(context)
 
 
@@ -50,8 +46,8 @@ dict_company = {}
 
 @then('Собираем данные в Json 1')
 def parse_date_dict(context):
-    rows_company_name = Methods.check_elements(context, "//td[@class='bold left noWrap elp plusIconTd']")
-    rows_company_price = Methods.check_elements(context, "//td[3][starts-with(@class, 'pid')]")
+    rows_company_name = Methods.check_elements(context, Locators.LOCATOR_COMPANY_NAME)
+    rows_company_price = Methods.check_elements(context, Locators.LOCATOR_COMPANY_PRICE)
     for i in range(len(rows_company_price) - 1):
         company = rows_company_name[i].text
         price = rows_company_price[i].text
@@ -88,8 +84,8 @@ collect_date = []
 
 @then('Собираем данные в Json 2')
 def parse_date_class(context):
-    rows_company_name = Methods.check_elements(context, "//td[@class='bold left noWrap elp plusIconTd']")
-    rows_company_price = Methods.check_elements(context, "//td[3][starts-with(@class, 'pid')]")
+    rows_company_name = Methods.check_elements(context, Locators.LOCATOR_COMPANY_NAME)
+    rows_company_price = Methods.check_elements(context, Locators.LOCATOR_COMPANY_PRICE)
     Methods.screenshots(context)
     for i in range(len(rows_company_price) - 1):
         company = rows_company_name[i].text
@@ -118,39 +114,37 @@ def close_site(context):
 @given('Из Json в Python')  # не работает еще
 def parse_json_python(context):
     json_file = 'report.json'
-    with open(json_file, 'r') as file:
+    with open(json_file, 'r', encoding="utf-8") as file:
         data = json.load(file)
     Methods.screenshots(context)
 
 # 3 сценарий
 
-@when('Переходим в форму залогинивания') # не работает тесты проходят и при отсутствии предупреждения и при удалении путей
+@when('Переходим в форму залогинивания')
 def login_form(context):
-    Methods.click_element(context, "//*[@id='userAccount']/div/a[1]")
+    Methods.click_element(context, Locators.LOCATOR_LOGIN_FORM)
     Methods.screenshots(context)
 
 
 @then('Вводим почту "{email}"')
 def input_user(context, email):
-    #Methods.type_text(context, "//*[@id='loginFormUser_email']", email)
+    Methods.type_text(context, Locators.LOCATOR_EMAIL, email)
     Methods.screenshots(context)
 
 
 @then('Вводим пароль "{password}"')
 def input_password(context, password):
-    Methods.type_text(context, "//*[@id='loginForm_password']", password)
+    Methods.type_text(context, Locators.LOCATOR_PASSWORD, password)
     Methods.screenshots(context)
 
 
 @then('Кнопка Войти')
 def button_enter(context):
-    Methods.click_element(context, "//*[@id='signup']/a")
+    Methods.click_element(context, Locators.LOCATOR_ENTER)
     Methods.screenshots(context)
 
 
 @then('Заголовок или Предупреждение "{warn}"')
 def find_warn(context, warn):
-    path1 = "//*[@id='serverErrors']"
-    path2 = "//*[@id='emailSigningNotify']"
-    Methods.check_word(context, path1, warn)
+    Methods.check_word(context, Locators.LOCATOR_WARN1, warn)
     Methods.screenshots(context)

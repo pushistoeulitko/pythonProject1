@@ -1,0 +1,15 @@
+
+class Locators:
+    LOCATOR_PATH1 = "//*[@id='navMenu']/ul/li[1]/a"
+    LOCATOR_PATH2 = "//*[@id='navMenu']/ul/li[1]/ul/li[4]"
+    LOCATOR_PATH3 = "//*[@id='navMenu']/ul/li[1]/ul/li[4]/div/ul[1]/li[3]/a"
+    LOCATOR_SPAM = "//*[@id='PromoteSignUpPopUp']/div[2]/i"
+    LOCATOR_TITLE = "//*[@id='leftColumn']/h1"
+    LOCATOR_COMPANY_NAME = "//td[@class='bold left noWrap elp plusIconTd']"
+    LOCATOR_COMPANY_PRICE = "//td[3][starts-with(@class, 'pid')]"
+    LOCATOR_LOGIN_FORM = "//*[@id='userAccount']/div/a[1]"
+    LOCATOR_EMAIL = "//*[@id='loginFormUser_email']"
+    LOCATOR_PASSWORD = "//*[@id='loginForm_password']"
+    LOCATOR_ENTER = "//*[@id='signup']/a"
+    LOCATOR_WARN1 = "//*[@id='serverErrors']"
+    LOCATOR_WARN2 = "//*[@id='emailSigningNotify']"
