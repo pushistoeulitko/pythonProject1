@@ -97,11 +97,16 @@ def parse_date_class(context):
 
 @then('Выгрузка собранных данных в JSON 2')
 def parse_to_json(context):
-    for obj in collect_date:
-        dict_company.update({obj.company: obj.price})
-    with open("report.json", "w", encoding="utf-8") as file:
-        json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
-    Methods.screenshots(context)
+    try:
+        for obj in collect_date:
+            dict_company.update({obj.company: obj.price})
+        with open("report.json", "w", encoding="utf-8") as file:
+            json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
+        #Methods.screenshots(context)
+        print('Выгрузились собранные данные в JSON')
+    except IOError as e:
+        print(e)
+        assert False
 
 
 @then('Закрываем сайт')
@@ -111,12 +116,19 @@ def close_site(context):
 
 
 # 2 сценарий
-@given('Из Json в Python')  # не работает еще
+@given('Из Json в Python')
 def parse_json_python(context):
-    json_file = 'report.json'
-    with open(json_file, 'r', encoding="utf-8") as file:
-        data = json.load(file)
-    Methods.screenshots(context)
+    try:
+        json_file = 'report.json'
+        with open(json_file, 'r', encoding="utf-8") as file:
+            data = json.load(file)
+            print(data)
+        #Methods.screenshots(context)
+        print('Выгрузились из JSON в Python')
+    except IOError as e:
+        print(e)
+        assert False
+
 
 # 3 сценарий
 
