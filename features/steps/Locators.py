@@ -13,3 +13,4 @@ class Locators:
     LOCATOR_ENTER = "//*[@id='signup']/a"
     LOCATOR_WARN1 = "//*[@id='serverErrors']"
     LOCATOR_WARN2 = "//*[@id='emailSigningNotify']"
+    LOCATOR_DIVIDENTS = "//*[@id='leftColumn']//div[9]/span[2]"

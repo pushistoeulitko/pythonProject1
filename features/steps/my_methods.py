@@ -49,6 +49,16 @@ class Methods(Browser):
         else:
             print(f"Текст {messege} передан по Xpath {path}")
 
+    #def get_text(self, path):
+        #global text0
+        #try:
+            #text0 = self.driver.find_element_by_xpath(path).text
+        #except Exception as e:
+            #print(f"Текст {text0} извлечен из элемента по Xpath {path}", format(e))
+            #return text0
+       # else:
+            #print(f"Текст не извлечен из элемента по Xpath {path}")
+
     def check_word(self, path, word):
         try:
             word_0 = self.driver.find_element_by_xpath(path).text
