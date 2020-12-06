@@ -1,18 +1,18 @@
 from behave import *
 from selenium.webdriver import chrome, firefox
 import json
-import time
 from features.steps.Company import Company
 from features.steps.brower_setting import Browser
 from features.steps.my_methods import Methods
 from features.steps.Locators import Locators
 from features.steps.storage import Storage
+from features.steps.Page import Page
 
 
 @given('Открываем сайт')
-def open_main_page(context):
+def open_main_page(context, ):
     Browser.settings(context, chrome, False)
-    Methods.open_main_page(context)
+    Methods.open_page(context, Page.MAIN.value)
     Methods.screenshots(context)
     Methods.spam(context)
 
@@ -69,6 +69,7 @@ def parse_to_json(context):
 
 collect_date = []
 
+
 @then('Собираем данные в Json 2')
 def parse_date_class(context):
     rows_company_name = Methods.check_elements(context, Locators.LOCATOR_COMPANY_NAME)
@@ -89,15 +90,16 @@ def parse_to_json(context):
             dict_company.update({obj.name: obj.price})
         with open("report.json", "w", encoding="utf-8") as file:
             json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
-        #Methods.screenshots(context)
         print('Выгрузились собранные данные в JSON')
     except IOError as e:
         print(e)
         assert False
+    #Methods.screenshots(context)
+
 
 @then("Рассчет изменения цены % в большую сторону")
 def increase_company_price(context):
-# продолжение следует
+    # продолжение следует
     Methods.screenshots(context)
 
 
@@ -107,7 +109,8 @@ def close_site(context):
     Browser.quit(context)
 
 
-company_list=[]
+company_list = []
+
 
 # 2 сценарий
 @given('Из Json в Python')
@@ -119,10 +122,17 @@ def parse_json_python(context):
             for i in data.keys():
                 company_list.append(i)
         print('Выгрузились из JSON в Python')
-    #Methods.screenshots(context)
     except IOError as e:
         print(e)
         assert False
+    #Methods.screenshots(context)
+
+@given("Открываем страницу с акциями российских кампаний")
+def open_main_page(context):
+    Browser.settings(context, chrome, False)
+    Methods.open_page(context, Page.EQUITIES_RUSSIA.value)
+    Methods.screenshots(context)
+    Methods.spam(context)
 
 
 dict_dividends = {}
@@ -130,17 +140,16 @@ dict_dividends = {}
 
 @then("Собираем данные о дивидентах")
 def collect_dividends_info(context):
-    #print(company_list)
-    rows_company_name = company_list
-    for i in range(len(rows_company_name) - 1):
-        text = rows_company_name[i]
-        Methods.click_element(context, f'//*[local-name()="a" and text()="{text}"]')
-        # path = "//*[@id='leftColumn']//div[9]/span[2]"
-        # dividends = Methods.get_text(context, path)
-        dividends = context.driver.find_element_by_xpath(Locators.LOCATOR_DIVIDENTS).text
+    for i in range(len(company_list) - 1):
+        Methods.spam3(context)
+        path = Locators.LOCATOR_NAME_DIVIDENTS + f'"{company_list[i]}"]'
+        Methods.click_element(context, path)
+        dividends = Methods.get_text(context, Locators.LOCATOR_DIVIDENTS)
+        print(dividends)
+        dict_dividends.update({company_list[i]: dividends})
         Methods.screenshots(context)
         context.driver.back()
-        time.sleep(10)
+    print(dict_dividends)
 
 
 # 3 сценарий
@@ -154,13 +163,11 @@ def login_form(context):
 @then('Вводим почту "{email}"')
 def input_user(context, email):
     Methods.type_text(context, Locators.LOCATOR_EMAIL, email)
-    Methods.screenshots(context)
 
 
 @then('Вводим пароль "{password}"')
 def input_password(context, password):
     Methods.type_text(context, Locators.LOCATOR_PASSWORD, password)
-    Methods.screenshots(context)
 
 
 @then('Кнопка Войти')
@@ -173,5 +180,3 @@ def button_enter(context):
 def find_warn(context, warn):
     Methods.check_word(context, Locators.LOCATOR_WARN1, warn)
     Methods.screenshots(context)
-
-

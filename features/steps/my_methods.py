@@ -3,19 +3,33 @@ from selenium.webdriver.common.action_chains import ActionChains
 from features.steps.brower_setting import Browser
 from features.steps.Locators import Locators
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException, InvalidSelectorException
-
+import time
 
 class Methods(Browser):
 
-    def open_main_page(self):
-        self.driver.get('https://ru.investing.com')
+    def open_page(self, page):
+        self.driver.get(page)
         print("Зашли на сайт " + self.driver.current_url)
-        assert self.driver.current_url == 'https://ru.investing.com/'
+        url = self.driver.current_url
+        assert url == page
 
     def spam(self):
-        path = Locators.LOCATOR_SPAM
-        if self.driver.find_element_by_xpath(path).is_displayed():
-            self.driver.find_element_by_xpath(path).click()
+        if self.driver.find_element_by_xpath(Locators.LOCATOR_SPAM1).is_displayed():
+            self.driver.find_element_by_xpath(Locators.LOCATOR_SPAM1).click()
+
+    def spam3(self):
+        try:
+            spam_list = [Locators.LOCATOR_SPAM1, Locators.LOCATOR_SPAM3, Locators.LOCATOR_SPAM2]
+            time.sleep(10)
+            for i in range(0, 3):
+                if self.driver.find_element_by_xpath(spam_list[i]).is_displayed():
+                    self.driver.find_element_by_xpath(spam_list[i]).click()
+                else:
+                    continue
+        except Exception as e:
+            print(f"Спам отсутствует", format(e))
+        else:
+            print(f"Спам присутствует")
 
     def screenshots(self):
         allure.attach(self.driver.get_screenshot_as_png(), name='screenshot',
@@ -40,24 +54,23 @@ class Methods(Browser):
         else:
             print(f"Элемент присутствует по Xpath {path}")
 
-    def type_text(self, path, messege):
+    def type_text(self, path, message):
         try:
             field = self.driver.find_element_by_xpath(path)
-            field.send_keys(messege)
+            field.send_keys(message)
         except Exception as e:
-            print(f"Текст {messege} не передан по Xpath {path}", format(e))
+            print(f"Текст {message} не передан по Xpath {path}", format(e))
         else:
-            print(f"Текст {messege} передан по Xpath {path}")
+            print(f"Текст {message} передан по Xpath {path}")
 
-    #def get_text(self, path):
-        #global text0
-        #try:
-            #text0 = self.driver.find_element_by_xpath(path).text
-        #except Exception as e:
-            #print(f"Текст {text0} извлечен из элемента по Xpath {path}", format(e))
-            #return text0
-       # else:
-            #print(f"Текст не извлечен из элемента по Xpath {path}")
+    def get_text(self, path):
+        try:
+            text0 = self.driver.find_element_by_xpath(path).text
+        except Exception as e:
+            print(f"Текст {text0} не извлечен из элемента по Xpath {path}", format(e))
+        else:
+            print(f"Текст  извлечен из элемента по Xpath {path}")
+            return text0
 
     def check_word(self, path, word):
         try:
