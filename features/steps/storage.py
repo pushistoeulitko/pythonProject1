@@ -3,6 +3,7 @@ from features.steps.Company import Company
 
 
 class Storage():
+
     def __init__(self):
         self.company_from_base = get_company_list_from_db()
 
@@ -12,7 +13,7 @@ class Storage():
 
     # def write_into_file(self):
     # try:
-    # with open(f"dateCompany.")
+        # with open(f"dateCompany.")
 
 
 def get_company_list_from_db():
@@ -26,7 +27,7 @@ def get_company_list_from_db():
     return collect_company
 
 
-#print(Storage().__repr__())
+print(Storage().__repr__())
 
 
 

@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+a {
+    color: #17a2b8;
+}
+
+h1, .h1 {
+    display: block;
+    font-size: 1.7rem;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-top: 3rem !important;
+}
+
+h2 {
+    box-sizing: border-box;
+    margin-top: 2rem !important;
+    text-align: left;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: .875rem;
+}
+
+.h1, .h3, .h4, .h5, .h6, h1, h3, h4, h5, h6 {
+    text-align: center !important;
+}
+
+thead {
+    background: #17a2b8;
+}
+
+th {
+    color: #fff;
+}
+
+td, th {
+    text-align: center !important;
+}
+
+table {
+    width: 50%;
+}
+
+.lead {
+    text-align: center !important;
+    margin-bottom: 0.5rem;
+
+}
+
+::marker {
+    color: #17a2b8;
+}
+
+li {
+    margin-bottom: 1rem;
+    text-align: -webkit-match-parent;
+
+}
+p{
+    margin-bottom: 0.5rem;
+}
