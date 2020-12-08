@@ -1,5 +1,4 @@
 from flask import Flask, render_template, url_for
-
 from features.steps.storage import Storage
 
 app = Flask(__name__)
@@ -16,7 +15,7 @@ def scenario1_page():
 @app.route('/scenario2')
 def scenario2_page():
     #company = Storage.company_from_base
-    return render_template("scenario2.html" ) #company
+    return render_template("scenario2.html") #company
 
 @app.route('/scenario3')
 def scenario3_page():
