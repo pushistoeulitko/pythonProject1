@@ -26,8 +26,8 @@ class Methods(Browser):
                     self.driver.find_element_by_xpath(spam_list[i]).click()
                 else:
                     continue
-        except Exception as e:
-            print(f"Спам отсутствует", format(e))
+        except Exception:
+            print(f"Спам отсутствует")
         else:
             print(f"Спам присутствует")
 
@@ -90,3 +90,7 @@ class Methods(Browser):
         else:
             print(f"Найдено элементов: {number}")
             return elements
+
+    def str_to_float(self, num):
+        num_after = float(num.replace(".", "").replace(",", "."))
+        return num_after

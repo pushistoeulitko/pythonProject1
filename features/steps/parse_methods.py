@@ -8,10 +8,14 @@ import json
 from features.steps.my_methods import Methods
 from features.steps.storage import Storage
 
-collect_date = []
-company_list = []
+collect_date = [] # коллекция класса
+collect_date_filter = {} # список отфильтрованных кампаний (название и процент)
+collect_date_filter0 =[]
+company_list = [] # список кампаний
+increase_prise =[] # список процентов
 dict_company = {}
 dict_dividends = {}
+
 
 class Parse(Browser):
 
@@ -25,6 +29,29 @@ class Parse(Browser):
             comp = Company(company_name, company_price)
             collect_date.append(comp)
         return collect_date
+
+    def increase_price(self):
+        for i in range(len(collect_date) - 1):
+            company_name = Storage.company_from_base[i].name
+            company_price = Methods.str_to_float(self, collect_date[i].price)
+            current_price = Methods.str_to_float(self, Storage.company_from_base[i].price)
+            if current_price > company_price:
+                percent_increase = round((current_price - company_price) / company_price * 100, 2)
+                # print(f"кампания {company_name} цена ранее {before_price} цена сейчас {current_price} {percent_increase} %")
+                collect_date_filter.update({company_name: percent_increase})
+                #comp = Company(company_name, company_price, percent_increase)
+                #collect_date_filter0.append(comp)
+        print(collect_date_filter)
+       # return collect_date_filter0
+
+
+    def parse_dict_to_json(self):
+        try:
+            with open("report.json", "w", encoding="utf-8") as file:
+                json.dump(collect_date_filter, file, indent=4, ensure_ascii=False, separators=(',', ': '))
+        except IOError as e:
+            print(e)
+            assert False
 
     def parse_class_to_json(self):
 
@@ -59,7 +86,7 @@ class Parse(Browser):
             Methods.click_element(self, path)
             dividends = Methods.get_text(self, Locators.LOCATOR_DIVIDENTS)
             dict_dividends.update({company_list[i]: dividends})
-            Storage.company_from_ui_dividends = dict_dividends
             Methods.screenshots(self)
             self.driver.back()
-    print(dict_dividends)
+        print(dict_dividends)
+        return dict_dividends

@@ -4,7 +4,7 @@ import json
 from features.steps.brower_setting import Browser
 from features.steps.my_methods import Methods
 from features.steps.Locators import Locators
-from features.steps.parse_methods import Parse
+from features.steps.parse_methods import Parse, collect_date
 from features.steps.Page import Page
 from features.steps.storage import Storage
 
@@ -73,15 +73,16 @@ def parse_date_class(context):
     Parse.parse_date_class(context)
 
 
-@then('Выгрузка собранных данных в JSON 2')
-def parse_to_json(context):
-    Parse.parse_class_to_json(context)
-    Methods.screenshots(context)
-
-
 @then("Рассчет изменения цены % в большую сторону")
 def increase_company_price(context):
-    # продолжение следует
+    Parse.increase_price(context)
+    # Methods.screenshots(context)
+
+
+@then('Выгрузка собранных данных в JSON 2')
+def parse_to_json(context):
+    #Parse.parse_class_to_json(context)
+    Parse.parse_dict_to_json(context)
     Methods.screenshots(context)
 
 
