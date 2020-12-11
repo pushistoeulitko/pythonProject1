@@ -3,6 +3,47 @@
 Cценарий 1
 {% endblock %}
 
+{% block scenario %}
+1
+{% endblock %}
+
+{% block status %}
+n
+{% endblock %}
+
+{% block steps %}
+1
+2
+3
+{% endblock %}
+
+{% block time %}
+x
+{% endblock %}
+
 {% block whatever %}
-<h3> % % % </h3>
+
+<div class="container mt-5">
+    <h2 style="font-size: 1.5em" class="h2">Изменение цены акций</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>Название компании </th>
+                <th>Текущая цена</th>
+                <th>Увеличение цены, % </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for i in range(num-1) %}
+                <td>{{ company[i] }}</td>
+                <td>{{ price[i] }}</td>
+                <td>{{ percent[i] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

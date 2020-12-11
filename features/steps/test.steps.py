@@ -1,12 +1,11 @@
 from behave import *
 from selenium.webdriver import chrome, firefox
-import json
 from features.steps.brower_setting import Browser
 from features.steps.my_methods import Methods
 from features.steps.Locators import Locators
-from features.steps.parse_methods import Parse, collect_date
+from features.steps.parse_methods import Parse
 from features.steps.Page import Page
-from features.steps.storage import Storage
+from features.steps.Dict import Dict
 
 
 @given('Открываем сайт')
@@ -41,34 +40,7 @@ def check_title(context):
     Methods.screenshots(context)
 
 
-# вариант  - Словарь
-
-
-dict_company = {}
-
-
-@then('Собираем данные в Json 1')
-def parse_date_dict(context):
-    rows_company_name = Methods.check_elements(context, Locators.LOCATOR_COMPANY_NAME)
-    rows_company_price = Methods.check_elements(context, Locators.LOCATOR_COMPANY_PRICE)
-    for i in range(len(rows_company_price) - 1):
-        company = rows_company_name[i].text
-        price = rows_company_price[i].text
-        dict_company.update({company: price})
-    Methods.screenshots(context)
-
-
-@then('Выгрузка собранных данных в JSON 1')
-def parse_to_json(context):
-    with open("report.json", "w", encoding="utf-8") as file:
-        json.dump(dict_company, file, indent=4, ensure_ascii=False, separators=(',', ': '))
-    Methods.screenshots(context)
-
-
-# вариант  - ООП
-
-
-@then('Собираем данные в Json 2')
+@then('Собираем данные в Json')
 def parse_date_class(context):
     Parse.parse_date_class(context)
 
@@ -82,7 +54,12 @@ def increase_company_price(context):
 @then('Выгрузка собранных данных в JSON 2')
 def parse_to_json(context):
     #Parse.parse_class_to_json(context)
-    Parse.parse_dict_to_json(context)
+    Dict.parse_dict_to_json(context)
+    Methods.screenshots(context)
+
+@then('Выгрузка собранных данных в JSON 1')
+def parse_to_json(context):
+    Dict.parse_dict_to_json(context)
     Methods.screenshots(context)
 
 
@@ -109,6 +86,12 @@ def open_main_page(context):
 @then("Собираем данные о дивидентах")
 def collect_dividends_info(context):
     Parse.collect_dividends_info(context)
+
+
+@then("Перезаписываем Json")
+def rewrite_JSON(context):
+    Dict.write_to_json2(context)
+    Dict.parse_dict_to_json(context)
 
 
 # 3 сценарий
@@ -139,3 +122,5 @@ def button_enter(context):
 def find_warn(context, warn):
     Methods.check_word(context, Locators.LOCATOR_WARN1, warn)
     Methods.screenshots(context)
+
+

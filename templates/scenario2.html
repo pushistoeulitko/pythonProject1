@@ -4,9 +4,25 @@
 Cценарий 2
 {% endblock %}
 
+{% block scenario %}
+2
+{% endblock %}
+
+{% block status %}
+n
+{% endblock %}
+
+{% block steps %}
+1
+2
+3
+{% endblock %}
+
+{% block time %}
+x
+{% endblock %}
 
 {% block whatever %}
-
 
 <div class="container mt-5">
     <h2 style="font-size: 1.5em" class="h2">Отчет о дивидентной доходности</h2>
@@ -21,59 +37,16 @@ Cценарий 2
             </thead>
             <tbody>
             <tr>
-                <td>1</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
+                {% for i in range(num-1) %}
+                <td>{{ i+1 }}</td>
+                <td>{{ company[i] }}</td>
+                <td>{{ dividends[i] }}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>amet</td>
-                <td>consectetur</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>libero</td>
-                <td>Sed</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>dapibus</td>
-                <td>diam</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Nulla</td>
-                <td>quis</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>nibh</td>
-                <td>elementum</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>sagittis</td>
-                <td>ipsum</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>Fusce</td>
-                <td>nec</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>augue</td>
-                <td>semper</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>massa</td>
-                <td>Vestibulum</td>
-            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
-{{ company }}
+
 {{ dividend }}
 {% endblock %}

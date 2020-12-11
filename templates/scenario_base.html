@@ -5,10 +5,26 @@
 {% endblock %}
 
 {% block body %}
-<h1 style="font-size: 1.7rem" class="card-header">Название Сценария:  </h1>
-<p class="lead">Статус сценария: </p>
-<p class="lead">Кол-во шагов:   </p>
-<p class="lead">Время прохождения:  </p>
+<h1 style="font-size: 1.7rem" class="card-header">Название Сценария:
+    {% block scenario %}
+    {% endblock %}
+</h1>
+
+<p class="lead">Статус сценария:
+    {% block status %}
+    {% endblock %}
+</p>
+
+<p class="lead">Кол-во шагов:
+    {% block steps %}
+    {% endblock %}
+</p>
+
+<p class="lead">Время прохождения:
+    {% block time %}
+    {% endblock %}
+</p>
+
 {% endblock %}
 
 {% block whatever %}

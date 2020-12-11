@@ -20,7 +20,7 @@ class Methods(Browser):
     def spam3(self):
         try:
             spam_list = [Locators.LOCATOR_SPAM1, Locators.LOCATOR_SPAM3, Locators.LOCATOR_SPAM2]
-            time.sleep(10)
+            time.sleep(5)
             for i in range(0, 3):
                 if self.driver.find_element_by_xpath(spam_list[i]).is_displayed():
                     self.driver.find_element_by_xpath(spam_list[i]).click()

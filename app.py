@@ -1,6 +1,4 @@
 from flask import Flask, render_template, url_for
-
-from features.steps.parse_methods import dict_dividends
 from features.steps.storage import Storage
 
 app = Flask(__name__)
@@ -12,14 +10,16 @@ def report_page():
 
 @app.route('/scenario1')
 def scenario1_page():
-    return render_template("scenario1.html")
+    company_filter = Storage.company_list
+    percent= Storage.company_from_ui_percent_increase
+    price= Storage.company_from_ui_price
+    return render_template("scenario1.html", company=company_filter, price = price, percent=percent, num=len(company_filter)+1)
 
 @app.route('/scenario2')
 def scenario2_page():
-    company_filter = Storage.company_from_base
-    #company_filter = dict_dividends.keys()
-    #company_dividends = dict_dividends.values()
-    return render_template("scenario2.html", company=company_filter) #dividends=company_dividends
+    company_filter = Storage.company_list
+    dividends = Storage.dividends
+    return render_template("scenario2.html", company=company_filter, dividends=dividends, num=len(company_filter)+1)
 
 @app.route('/scenario3')
 def scenario3_page():
