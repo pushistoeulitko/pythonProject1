@@ -8,13 +8,14 @@ from features.steps.storage import Storage
 
 collect_date = []  # коллекция класса
 collect_date_filter = {}  # список отфильтрованных кампаний (название и процент)
-collect_date_filter0 = []
+#collect_date_filter0 = []
 company_list = []  # список кампаний
 company_price = [] # список цен
 percent_increase = [] # список процентов
+company_dividends =[] # список дивидентов
 increase_prise = []  # список процентов
 dict_company = {}
-dict_dividends = {}
+#dict_dividends = {}
 
 
 
@@ -94,9 +95,9 @@ class Parse(Browser):
             path = Locators.LOCATOR_NAME_DIVIDENTS + f'"{company_list[i]}"]'
             Methods.click_element(self, path)
             dividends = Methods.get_text(self, Locators.LOCATOR_DIVIDENTS)
-            dict_dividends.update({company_list[i]: dividends})
+            #dict_dividends.update({company_list[i]: dividends})
+            company_dividends.append(dividends)
             Methods.screenshots(self)
             self.driver.back()
-        print(dict_dividends)
-        return dict_dividends
-
+        #return dict_dividends
+        return company_dividends
