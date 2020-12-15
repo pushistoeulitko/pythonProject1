@@ -15,7 +15,7 @@ percent_increase = [] # список процентов
 company_dividends =[] # список дивидентов
 increase_prise = []  # список процентов
 dict_company = {}
-#dict_dividends = {}
+dict_dividends = {}
 
 
 
@@ -95,7 +95,7 @@ class Parse(Browser):
             path = Locators.LOCATOR_NAME_DIVIDENTS + f'"{company_list[i]}"]'
             Methods.click_element(self, path)
             dividends = Methods.get_text(self, Locators.LOCATOR_DIVIDENTS)
-            #dict_dividends.update({company_list[i]: dividends})
+            dict_dividends.update({company_list[i]: dividends})
             company_dividends.append(dividends)
             Methods.screenshots(self)
             self.driver.back()

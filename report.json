@@ -1,27 +1,32 @@
 {
     "Аэрофлот": {
-        "price": 71.48,
-        "percent": 7.13,
+        "price": 70.08,
+        "percent": 9.28,
         "dividends": "N/A (N/A)"
     },
+    "Интер РАО ЕЭС ОАО": {
+        "price": 5.2,
+        "percent": 0.77,
+        "dividends": "0,2 (3,7%)"
+    },
     "РуссНефть": {
-        "price": 261.6,
-        "percent": 60.47,
+        "price": 249.4,
+        "percent": 68.32,
         "dividends": "N/A (N/A)"
     },
     "Сургутнефтегаз": {
-        "price": 36.1,
-        "percent": 3.52,
+        "price": 34.88,
+        "percent": 7.14,
         "dividends": "0,65 (1,83%)"
     },
     "Татнефть": {
-        "price": 521.9,
-        "percent": 6.97,
-        "dividends": "96,85 (19,09%)"
+        "price": 514.4,
+        "percent": 8.53,
+        "dividends": "96,85 (19,04%)"
     },
     "Татнефть (прив.)": {
-        "price": 488.4,
-        "percent": 6.59,
-        "dividends": "96,85 (20,37%)"
+        "price": 482.0,
+        "percent": 8.01,
+        "dividends": "96,85 (20,22%)"
     }
 }
