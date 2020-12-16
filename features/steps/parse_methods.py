@@ -81,9 +81,9 @@ class Parse(Browser):
                     company_price.append(value['price'])
                     percent_increase.append(value['percent'])
             print('Выгрузились из JSON в Python')
-            print(company_list)
-            print(company_price)
-            print(percent_increase)
+            #print(company_list)
+            #print(company_price)
+            #print(percent_increase)
         except IOError as e:
             print(e)
             assert False

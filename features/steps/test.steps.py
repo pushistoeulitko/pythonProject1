@@ -90,7 +90,6 @@ def collect_dividends_info(context):
 
 @then("Перезаписываем Json")
 def rewrite_JSON(context):
-    #Dict.write_to_json2(context)
     Dict.write_to_json1(context)
     Dict.parse_dict_to_json(context)
 

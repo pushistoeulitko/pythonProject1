@@ -1,6 +1,7 @@
 import sqlite3 as sql
 from features.steps.Company import Company
 import json
+from collections import OrderedDict
 
 
 def get_company_list_from_db():
@@ -39,6 +40,38 @@ def get_from_ui_dividends():   # получаем значенияю
     return price, percent, dividends,
 
 
+def get_from_report():   # получаем значенияю
+    json_file = "C:/Users/pushi/PycharmProjects/pythonProject1/features/steps/final_report.json"
+    with open(json_file, 'r', encoding="utf-8") as file:
+        data = json.load(file)
+        scenario1 = []
+        scenario2 = []
+        scenario3 = []
+        for key, value in data.items():
+            if "Часть 1" in key:
+                scenario1.append(key)
+                scenario1.append(value['status'])
+                scenario1.append(value['steps'])
+                scenario1.append(value['start'])
+                scenario1.append(value['stop'])
+            if "Часть 2" in key:
+                scenario2.append(key)
+                scenario2.append(value['status'])
+                scenario2.append(value['steps'])
+                scenario2.append(value['start'])
+                scenario2.append(value['stop'])
+            if "Часть 3" in key:
+                scenario3.append(key)
+                scenario3.append(value['status'])
+                scenario3.append(value['steps'])
+                scenario3.append(value['start'])
+                scenario3.append(value['stop'])
+        print(scenario1, scenario2, scenario3)
+
+    return scenario1, scenario2, scenario3
+
+
+
 class Storage:
 
     # Загрузка данных из базы при инициализации класса.
@@ -49,10 +82,15 @@ class Storage:
     company_from_ui_price = get_from_ui_dividends()[1]
     dividends = get_from_ui_dividends()[2]
 
+    scenario1 = get_from_report()[0]
+    scenario2 = get_from_report()[1]
+    scenario3 = get_from_report()[2]
+
+
     def __repr__(self):
         return f"{self.company_from_base} \n +{self.company_list}\n + \
                {self.company_from_ui_price}\n + {self.company_from_ui_percent_increase}\n  \
-               +{self.dividends}"
+               +{self.dividends}\n + {self.scenario1}\n+{self.scenario2}\n+ {self.scenario3}\n"
 
     # Предусмотреть возможность вывода размера хранилища.
     def __len__(self):
@@ -79,3 +117,5 @@ if __name__ == "__main__":
 
 #print(Storage().__repr__())
 #print(Storage().__len__())
+
+get_from_report()
