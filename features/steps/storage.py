@@ -1,7 +1,6 @@
 import sqlite3 as sql
 from features.steps.Company import Company
 import json
-from collections import OrderedDict
 
 
 def get_company_list_from_db():
@@ -25,7 +24,7 @@ def get_company_list_from_ui():  # получаем ключи
     return company_list
 
 
-def get_from_ui_dividends():   # получаем значенияю
+def get_from_ui_dividends():   # получаем значения
     dividends = []
     price = []
     percent = []
@@ -40,7 +39,7 @@ def get_from_ui_dividends():   # получаем значенияю
     return price, percent, dividends,
 
 
-def get_from_report():   # получаем значенияю
+def get_from_report():   # получаем данные из final_report
     json_file = "C:/Users/pushi/PycharmProjects/pythonProject1/features/steps/final_report.json"
     with open(json_file, 'r', encoding="utf-8") as file:
         data = json.load(file)
@@ -49,27 +48,18 @@ def get_from_report():   # получаем значенияю
         scenario3 = []
         for key, value in data.items():
             if "Часть 1" in key:
-                scenario1.append(key)
-                scenario1.append(value['status'])
-                scenario1.append(value['steps'])
-                scenario1.append(value['start'])
-                scenario1.append(value['stop'])
+                name = scenario1
             if "Часть 2" in key:
-                scenario2.append(key)
-                scenario2.append(value['status'])
-                scenario2.append(value['steps'])
-                scenario2.append(value['start'])
-                scenario2.append(value['stop'])
+                name = scenario2
             if "Часть 3" in key:
-                scenario3.append(key)
-                scenario3.append(value['status'])
-                scenario3.append(value['steps'])
-                scenario3.append(value['start'])
-                scenario3.append(value['stop'])
-        print(scenario1, scenario2, scenario3)
+                name = scenario3
+            name.append(key)
+            name.append(value['status'])
+            name.append(value['steps'])
+            name.append(value['start'])
+            name.append(value['stop'])
 
     return scenario1, scenario2, scenario3
-
 
 
 class Storage:
@@ -88,17 +78,21 @@ class Storage:
 
 
     def __repr__(self):
-        return f"{self.company_from_base} \n +{self.company_list}\n + \
-               {self.company_from_ui_price}\n + {self.company_from_ui_percent_increase}\n  \
-               +{self.dividends}\n + {self.scenario1}\n+{self.scenario2}\n+ {self.scenario3}\n"
+        return f"Кампании и их цена из базы: {self.company_from_base} \n " \
+               f"Список кампаний чьи акции выросли: {self.company_list}\n \
+               текущая цена: {self.company_from_ui_price}\n процент тзменения цены: {self.company_from_ui_percent_increase}\n  \
+               дивиденды: {self.dividends}\n Тестовые сценарии: {self.scenario1}\n+{self.scenario2}\n+ {self.scenario3}\n"
 
     # Предусмотреть возможность вывода размера хранилища.
     def __len__(self):
-        return len(self.company_from_base) + \
-               len(self.company_list) + \
-               len(self.company_from_ui_price) + \
-               len(self.company_from_ui_percent_increase) + \
-               len(self.dividends)
+        return f"Данные извлеченные из базы по кампаниям: {len(self.company_from_base)} \n" \
+               f"Данные полученные с сайта (кампания/цена/процент/дивиденты)" \
+               f": {len(self.company_list)}/{len(self.company_from_ui_price)}/{len(self.company_from_ui_percent_increase)}/" \
+               f"{len(self.dividends)} \n"\
+               f"Описание сценариев: {len(self.scenario1)}/{len(self.scenario2)}/{len(self.scenario3)}\n"\
+               f"Всего значений: " \
+               f"{len(self.company_from_base)+len(self.company_list)+len(self.company_from_ui_price)+len(self.company_from_ui_percent_increase)+len(self.dividends)+len(self.scenario1)+len(self.scenario2)+len(self.scenario3)}"
+
 
     #@company_from_ui_equities.setter
     #def company_from_ui_equities(self, value):
@@ -115,7 +109,7 @@ class Storage:
 if __name__ == "__main__":
     s = Storage()
 
-#print(Storage().__repr__())
+print(Storage().__repr__())
 #print(Storage().__len__())
 
-get_from_report()
+#
